@@ -21,7 +21,7 @@ module.exports = {
     let { Server } = require("socket.io");
     var io = new Server(strapi.server.httpServer, {
       cors: { // cors setup
-        origin: "http://localhost:3000",
+        origin: "http://localhost:5173",
         methods: ["GET", "POST"],
         allowedHeaders: ["my-custom-header"],
         credentials: true,
@@ -30,38 +30,8 @@ module.exports = {
     io.on("connection", (socket) => {
       //Listening for a connection from the frontend
       console.log("A user connected : ", socket.id);
-      
-      // socket.on("join", ({ username }) => { // Listening for a join connection
-      //   console.log("user connected");
-      //   console.log("username is ", username);
-      //   if (username) {
-      //     socket.join("group"); // Adding the user to the group
-      //     socket.emit("welcome", { // Sending a welcome message to the User
-      //       user: "bot",
-      //       text: `${username}, Welcome to the group chat`,
-      //       userData: username,
-      //     });
-      //   } else {
-      //     console.log("An error occurred");
-      //   }
-      // });
-      socket.on("sendMessage", async (data) => { // Listening for a sendMessage connection
-        let strapiData = { // Generating the message data to be stored in Strapi
-          data: {
-            user: data.user,
-            message: data.message,
-          },
-        };
-        var axios = require("axios");
-        await axios
-          .post("http://localhost:1337/api/messages", strapiData)//Storing the messages in Strapi
-          .then((e) => {
-            socket.emit("message", {//Sending the message to the group
-              user: data.username,
-              text: data.message,
-            });
-          })
-          .catch((e) => console.log("error", e.message));
+      socket.on("send_message", (data) => { // Listening for a sendMessage connection
+        socket.emit("receive_message", data);
       });
     });
   },
