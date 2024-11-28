@@ -19,6 +19,12 @@
     "user": {
       "type": "string",
       "required": true
+    },
+    "session": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::session.session",
+      "inversedBy": "messages"
     }
   }
 }
