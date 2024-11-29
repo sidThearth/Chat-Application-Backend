@@ -21,7 +21,7 @@ module.exports = {
     let { Server } = require("socket.io");
     var io = new Server(strapi.server.httpServer, {
       cors: { // cors setup
-        origin: "http://localhost:5173",
+        origin: "https://chat-frontend-masterrachit777s-projects.vercel.app",
         methods: ["GET", "POST"],
         allowedHeaders: ["my-custom-header"],
         credentials: true,
