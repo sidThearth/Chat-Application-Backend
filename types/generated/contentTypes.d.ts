@@ -428,10 +428,7 @@ export interface ApiSessionSession extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
+    user: Schema.Attribute.String;
     userId: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -922,7 +919,6 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    sessions: Schema.Attribute.Relation<'oneToMany', 'api::session.session'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
