@@ -21,7 +21,7 @@ module.exports = {
     let { Server } = require("socket.io");
     var io = new Server(strapi.server.httpServer, {
       cors: { // cors setup
-        origin: "http://localhost:5173",
+        origin: "https://chat-application-frontend-ga1y.onrender.com",
         allowedHeaders: ["my-custom-header"],
         credentials: true,
       },
